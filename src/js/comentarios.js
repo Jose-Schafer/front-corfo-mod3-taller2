@@ -11,8 +11,10 @@ const reviews = [
 ];
 
 // Función para agregar dinámicamente comentarios
-function addReviewCards() {
+function renderComments() {
   const container = document.getElementById("comments");
+  container.innerHTML = ""; // Borrar comentarios ya renderizados para evitar duplicados
+
 
   reviews.forEach(review => {
     // Crear la columna del comentario
@@ -45,4 +47,26 @@ function addReviewCards() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", addReviewCards);
+
+// Función para agregar nuevo comentario
+function addNewComment() {
+  const userName = prompt("Ingresa tu nombre:");
+  console.log(`El nombre ingresado fue: ${userName}`)
+
+  const userComment = prompt("Ingresa tu comentario:");
+  console.log(`El comentario ingresado fue: ${userComment}`)
+
+  if (userName && userComment) {
+    // Agregar un nuevo comentario al listado
+    reviews.push({ title: userName, text: userComment });
+    // Re-renderizar los comentarios
+    renderComments();
+  } else {
+    alert("Porfavor agrega tu nombre y comentario antes de enviar.");
+  }
+}
+
+// Add event listener to the button
+document.getElementById("buttonAddComment").addEventListener("click", addNewComment);
+
+document.addEventListener("DOMContentLoaded", renderComments);
